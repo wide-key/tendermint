@@ -364,25 +364,36 @@ func Commit(ctx *rpctypes.Context, heightPtr *int64) (*ctypes.ResultCommit, erro
 //   "jsonrpc": "2.0",
 //   "id": "",
 //   "result": {
-//     "height": "39",
-//     "results": {
-//       "deliver_tx": [
-//         {
-//           "tags": [
-//             {
-//               "key": "YXBwLmNyZWF0b3I=",
-//               "value": "Q29zbW9zaGkgTmV0b3dva28="
-//             }
-//           ]
-//         }
-//       ],
-//       "end_block": {
-//         "validator_updates": null
+//     "height": "437",
+//     "txs_results": [
+//       {
+//         "gas_wanted": 1,
+//         "gas_used": 1,
+//         "tags": [
+//           {
+//             "key": "YXBwLmNyZWF0b3I=",
+//             "value": "Q29zbW9zaGkgTmV0b3dva28="
+//           },
+//         ]
 //       },
-//       "begin_block": {}
-//     }
-//   }
-// }
+//       {
+//         "code": 1,
+//         "codespace": "ibc",
+//         "log": "not enough gas",
+//         "gas_wanted": 1,
+//         "gas_used": 2,
+//         "tags": [
+//           {
+//             "key": "YXBwLmNyZWF0b3I=",
+//             "value": "Q29zbW9zaGkgTmV0b3dva28="
+//           },
+//         ]
+//       },
+//    ],
+//    "validator_updates": null,
+//    "consensus_param_updates": null,
+//  }
+//}
 // ```
 func BlockResults(ctx *rpctypes.Context, heightPtr *int64) (*ctypes.ResultBlockResults, error) {
 	storeHeight := blockStore.Height()
@@ -396,11 +407,12 @@ func BlockResults(ctx *rpctypes.Context, heightPtr *int64) (*ctypes.ResultBlockR
 		return nil, err
 	}
 
-	res := &ctypes.ResultBlockResults{
-		Height:  height,
-		Results: results,
-	}
-	return res, nil
+	return &ctypes.ResultBlockResults{
+		Height:                height,
+		TxsResults:            results.DeliverTx,
+		ValidatorUpdates:      results.EndBlock.ValidatorUpdates,
+		ConsensusParamUpdates: results.EndBlock.ConsensusParamUpdates,
+	}, nil
 }
 
 func getHeight(currentHeight int64, heightPtr *int64) (int64, error) {
