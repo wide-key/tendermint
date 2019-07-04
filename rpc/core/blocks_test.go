@@ -74,9 +74,9 @@ func TestBlockResults(t *testing.T) {
 		EndBlock:   &abci.ResponseEndBlock{},
 		BeginBlock: &abci.ResponseBeginBlock{},
 	}
+
 	stateDB = dbm.NewMemDB()
 	sm.SaveABCIResponses(stateDB, 100, results)
-
 	blockStore = mockBlockStore{height: 100}
 
 	testCases := []struct {
@@ -90,6 +90,8 @@ func TestBlockResults(t *testing.T) {
 		{100, false, &ctypes.ResultBlockResults{
 			Height:                100,
 			TxsResults:            results.DeliverTx,
+			BeginBlockEvents:      results.BeginBlock.Events,
+			EndBlockEvents:        results.EndBlock.Events,
 			ValidatorUpdates:      results.EndBlock.ValidatorUpdates,
 			ConsensusParamUpdates: results.EndBlock.ConsensusParamUpdates,
 		}},

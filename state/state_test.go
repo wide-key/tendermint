@@ -165,11 +165,7 @@ func TestABCIResponsesSaveLoad2(t *testing.T) {
 			DeliverTx: tc.added,
 			EndBlock:  &abci.ResponseEndBlock{},
 		}
-<<<<<<< HEAD
 		sm.SaveABCIResponses(stateDB, h, responses)
-=======
-		SaveABCIResponses(stateDB, h, responses)
->>>>>>> rpc: /block_results fix docs + write test + restructure response
 	}
 
 	// Query all before, should return expected value.

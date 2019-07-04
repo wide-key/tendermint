@@ -390,6 +390,8 @@ func Commit(ctx *rpctypes.Context, heightPtr *int64) (*ctypes.ResultCommit, erro
 //         ]
 //       },
 //    ],
+//    "begin_block_events": null,
+//    "end_block_events": null,
 //    "validator_updates": null,
 //    "consensus_param_updates": null,
 //  }
@@ -410,6 +412,8 @@ func BlockResults(ctx *rpctypes.Context, heightPtr *int64) (*ctypes.ResultBlockR
 	return &ctypes.ResultBlockResults{
 		Height:                height,
 		TxsResults:            results.DeliverTx,
+		BeginBlockEvents:      results.BeginBlock.Events,
+		EndBlockEvents:        results.EndBlock.Events,
 		ValidatorUpdates:      results.EndBlock.ValidatorUpdates,
 		ConsensusParamUpdates: results.EndBlock.ConsensusParamUpdates,
 	}, nil

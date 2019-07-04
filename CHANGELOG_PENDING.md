@@ -10,19 +10,19 @@ program](https://hackerone.com/tendermint).
 ### BREAKING CHANGES:
 
 * CLI/RPC/Config
-- [rpc] `/block_results` response format updated (see RPC docs for details)
-  ```
-  {
-    "jsonrpc": "2.0",
-    "id": "",
-    "result": {
-      "height": "2109",
-      "txs_results": null,
-      "validator_updates": null,
-      "consensus_param_updates": null
+  - [rpc] `/block_results` response format updated (see RPC docs for details)
+    ```
+    {
+      "jsonrpc": "2.0",
+      "id": "",
+      "result": {
+        "height": "2109",
+        "txs_results": null,
+        "validator_updates": null,
+        "consensus_param_updates": null
+      }
     }
-  }
-  ```
+    ```
 
 * Apps
 
@@ -51,4 +51,4 @@ program](https://hackerone.com/tendermint).
 - [p2p] \#3338 Prevent "sent next PEX request too soon" errors by not calling
   ensurePeers outside of ensurePeersRoutine
 - [behaviour] Return correct reason in MessageOutOfOrder (@jim380)
-  
+

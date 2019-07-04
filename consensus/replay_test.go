@@ -532,7 +532,7 @@ func TestMockProxyApp(t *testing.T) {
 		abciResWithEmptyDeliverTx.DeliverTx = make([]*abci.ResponseDeliverTx, 0)
 		abciResWithEmptyDeliverTx.DeliverTx = append(abciResWithEmptyDeliverTx.DeliverTx, &abci.ResponseDeliverTx{})
 
-		// called when SaveABCIResponses:
+		// called when saveABCIResponses:
 		bytes := cdc.MustMarshalBinaryBare(abciResWithEmptyDeliverTx)
 		loadedAbciRes := new(sm.ABCIResponses)
 
