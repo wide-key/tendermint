@@ -414,7 +414,7 @@ func BlockResults(ctx *rpctypes.Context, heightPtr *int64) (*ctypes.ResultBlockR
 
 	return &ctypes.ResultBlockResults{
 		Height:                height,
-		TxsResults:            results.DeliverTx,
+		TxsResults:            results.DeliverTxs,
 		BeginBlockEvents:      results.BeginBlock.Events,
 		EndBlockEvents:        results.EndBlock.Events,
 		ValidatorUpdates:      results.EndBlock.ValidatorUpdates,

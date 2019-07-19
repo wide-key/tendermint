@@ -156,7 +156,7 @@ func (blockExec *BlockExecutor) ApplyBlock(state State, blockID types.BlockID, b
 	}
 
 	// Lock mempool, commit app state, update mempoool.
-	appHash, err := blockExec.Commit(state, block, abciResponses.DeliverTx)
+	appHash, err := blockExec.Commit(state, block, abciResponses.DeliverTxs)
 	if err != nil {
 		return state, fmt.Errorf("Commit failed for application: %v", err)
 	}
@@ -261,7 +261,7 @@ func execBlockOnProxyApp(
 				logger.Debug("Invalid tx", "code", txRes.Code, "log", txRes.Log)
 				invalidTxs++
 			}
-			abciResponses.DeliverTx[txIndex] = txRes
+			abciResponses.DeliverTxs[txIndex] = txRes
 			txIndex++
 		}
 	}
@@ -463,7 +463,7 @@ func fireEvents(logger log.Logger, eventBus types.BlockEventPublisher, block *ty
 			Height: block.Height,
 			Index:  uint32(i),
 			Tx:     tx,
-			Result: *(abciResponses.DeliverTx[i]),
+			Result: *(abciResponses.DeliverTxs[i]),
 		}})
 	}
 
