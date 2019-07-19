@@ -369,11 +369,20 @@ func Commit(ctx *rpctypes.Context, heightPtr *int64) (*ctypes.ResultCommit, erro
 //       {
 //         "gas_wanted": 1,
 //         "gas_used": 1,
-//         "tags": [
+//         "events": [
 //           {
-//             "key": "YXBwLmNyZWF0b3I=",
-//             "value": "Q29zbW9zaGkgTmV0b3dva28="
-//           },
+//             "type": "app",
+//             "attributes": [
+//               {
+//                 "key": "Y3JlYXRvcg==",
+//                 "value": "Q29zbW9zaGkgTmV0b3dva28="
+//               },
+//               {
+//                 "key": "a2V5",
+//                 "value": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA3NDZhOTQ0NDQ1N2Y2NDE4YmY3MmEyOWExNTkwNThlZDg1YmVjNWU5MDUwMDAwMDBkNmUyZWVhY2VjN2RhOTk4ZjRlNDU3MWEyZWU5NmNhYmU2NGEzNmI0MjljZTQ5NjBkZDRjMWY5ZmJlYTQyNTdlZTUxMDk1NDc3MDYyMDY1Mzg4Yjk4MGIwYWU2ZmRkYzM5YWUzNDhhZjQ3MjczOTM0YWExMTNhNTdkNmEyZDY3OWQ0ZmMyNzlkYjg5Y2I1MTM3OTNmZTYxNTc0M2E3N2Y4NzZkODUwMTkxODAzY2Y5ZGU2NjBhMWVjOThmMDcwNTI3YjJjYThkYWIwNzI5NjRhMmQ0ODI2MzU4OWM5ZGFkNWI3OTI2ODA3OWM3Mjg1YTdhMWNmODIzODllZmY2Y2ExMzczMzk5ZWFiOTI5ZmY0NGZiOGE5NGU0YjY5NGU2NDZlM2UyYmZmN2Y1MTAxN2NhNWE1NjA4YzFlZTFkZWQzMzJhNTYwYzczYmM5MzFmYjJhOTM2NjY0NzBhOTA3MDc5NGNiYzU3ODIyN2NmZDViZGVlYTQwNjcyNzhhYmI2N2ZiNzUxYTg1MzBkZDBhNGFkNDgyN2U1ZjU0MmFjZjY4OWE5N2Y="
+//               }
+//             ]
+//           }
 //         ]
 //       },
 //       {
@@ -382,12 +391,6 @@ func Commit(ctx *rpctypes.Context, heightPtr *int64) (*ctypes.ResultCommit, erro
 //         "log": "not enough gas",
 //         "gas_wanted": 1,
 //         "gas_used": 2,
-//         "tags": [
-//           {
-//             "key": "YXBwLmNyZWF0b3I=",
-//             "value": "Q29zbW9zaGkgTmV0b3dva28="
-//           },
-//         ]
 //       },
 //    ],
 //    "begin_block_events": null,
