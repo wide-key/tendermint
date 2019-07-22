@@ -8,15 +8,14 @@ import (
 	"github.com/stretchr/testify/require"
 
 	abci "github.com/tendermint/tendermint/abci/types"
-	dbm "github.com/tendermint/tendermint/libs/db"
 	ctypes "github.com/tendermint/tendermint/rpc/core/types"
 	rpctypes "github.com/tendermint/tendermint/rpc/lib/types"
 	sm "github.com/tendermint/tendermint/state"
 	"github.com/tendermint/tendermint/types"
+	dbm "github.com/tendermint/tm-cmn/db"
 )
 
 func TestBlockchainInfo(t *testing.T) {
-
 	cases := []struct {
 		min, max     int64
 		height       int64
@@ -66,7 +65,7 @@ func TestBlockchainInfo(t *testing.T) {
 
 func TestBlockResults(t *testing.T) {
 	results := &sm.ABCIResponses{
-		DeliverTx: []*abci.ResponseDeliverTx{
+		DeliverTxs: []*abci.ResponseDeliverTx{
 			{Code: 0, Data: []byte{0x01}, Log: "ok"},
 			{Code: 0, Data: []byte{0x02}, Log: "ok"},
 			{Code: 1, Log: "not ok"},
@@ -89,7 +88,7 @@ func TestBlockResults(t *testing.T) {
 		{101, true, nil},
 		{100, false, &ctypes.ResultBlockResults{
 			Height:                100,
-			TxsResults:            results.DeliverTx,
+			TxsResults:            results.DeliverTxs,
 			BeginBlockEvents:      results.BeginBlock.Events,
 			EndBlockEvents:        results.EndBlock.Events,
 			ValidatorUpdates:      results.EndBlock.ValidatorUpdates,
