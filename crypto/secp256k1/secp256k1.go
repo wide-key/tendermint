@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"crypto/subtle"
+	"encoding/json"
 	"fmt"
 	"io"
 	"math/big"
@@ -169,3 +170,40 @@ func (pubKey PubKeySecp256k1) Equals(other crypto.PubKey) bool {
 	}
 	return false
 }
+
+
+
+func (k PubKeySecp256k1) MarshalJSON() ([]byte, error) {
+	return json.Marshal(k[:])
+}
+func (k *PubKeySecp256k1) UnmarshalJSON(bz []byte) error {
+	var obz []byte
+	err := json.Unmarshal(bz, &obz)
+	if err!=nil {
+		return err
+	}
+	if len(obz)!=len(PubKeySecp256k1{}) {
+		return fmt.Errorf("Invalid length: %d", len(obz))
+	}
+	copy((*k)[:], obz)
+	return nil
+}
+
+func (k PrivKeySecp256k1) MarshalJSON() ([]byte, error) {
+	return json.Marshal(k[:])
+}
+func (k *PrivKeySecp256k1) UnmarshalJSON(bz []byte) error {
+	var obz []byte
+	err := json.Unmarshal(bz, &obz)
+	if err!=nil {
+		return err
+	}
+	if len(obz)!=len(PrivKeySecp256k1{}) {
+		return fmt.Errorf("Invalid length: %d", len(obz))
+	}
+	copy((*k)[:], obz)
+	return nil
+}
+
+
+

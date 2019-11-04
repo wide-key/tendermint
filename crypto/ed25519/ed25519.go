@@ -3,6 +3,7 @@ package ed25519
 import (
 	"bytes"
 	"crypto/subtle"
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -168,3 +169,38 @@ func (pubKey PubKeyEd25519) Equals(other crypto.PubKey) bool {
 		return false
 	}
 }
+
+
+func (k PubKeyEd25519) MarshalJSON() ([]byte, error) {
+	return json.Marshal(k[:])
+}
+func (k *PubKeyEd25519) UnmarshalJSON(bz []byte) error {
+	var obz []byte
+	err := json.Unmarshal(bz, &obz)
+	if err!=nil {
+		return err
+	}
+	if len(obz)!=len(PubKeyEd25519{}) {
+		return fmt.Errorf("Invalid length: %d", len(obz))
+	}
+	copy((*k)[:], obz)
+	return nil
+}
+
+func (k PrivKeyEd25519) MarshalJSON() ([]byte, error) {
+	return json.Marshal(k[:])
+}
+func (k *PrivKeyEd25519) UnmarshalJSON(bz []byte) error {
+	var obz []byte
+	err := json.Unmarshal(bz, &obz)
+	if err!=nil {
+		return err
+	}
+	if len(obz)!=len(PrivKeyEd25519{}) {
+		return fmt.Errorf("Invalid length: %d", len(obz))
+	}
+	copy((*k)[:], obz)
+	return nil
+}
+
+
