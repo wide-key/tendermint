@@ -361,57 +361,57 @@ func (bA *BitArray) Update(o *BitArray) {
 	copy(bA.Elems, o.Elems)
 }
 
-// MarshalJSON implements json.Marshaler interface by marshaling bit array
-// using a custom format: a string of '-' or 'x' where 'x' denotes the 1 bit.
-func (bA *BitArray) MarshalJSON() ([]byte, error) {
-	if bA == nil {
-		return []byte("null"), nil
-	}
-
-	bA.mtx.Lock()
-	defer bA.mtx.Unlock()
-
-	bits := `"`
-	for i := 0; i < bA.Bits; i++ {
-		if bA.getIndex(i) {
-			bits += `x`
-		} else {
-			bits += `_`
-		}
-	}
-	bits += `"`
-	return []byte(bits), nil
-}
+//// MarshalJSON implements json.Marshaler interface by marshaling bit array
+//// using a custom format: a string of '-' or 'x' where 'x' denotes the 1 bit.
+//func (bA *BitArray) MarshalJSON() ([]byte, error) {
+//	if bA == nil {
+//		return []byte("null"), nil
+//	}
+//
+//	bA.mtx.Lock()
+//	defer bA.mtx.Unlock()
+//
+//	bits := `"`
+//	for i := 0; i < bA.Bits; i++ {
+//		if bA.getIndex(i) {
+//			bits += `x`
+//		} else {
+//			bits += `_`
+//		}
+//	}
+//	bits += `"`
+//	return []byte(bits), nil
+//}
 
 var bitArrayJSONRegexp = regexp.MustCompile(`\A"([_x]*)"\z`)
 
 // UnmarshalJSON implements json.Unmarshaler interface by unmarshaling a custom
 // JSON description.
-func (bA *BitArray) UnmarshalJSON(bz []byte) error {
-	b := string(bz)
-	if b == "null" {
-		// This is required e.g. for encoding/json when decoding
-		// into a pointer with pre-allocated BitArray.
-		bA.Bits = 0
-		bA.Elems = nil
-		return nil
-	}
-
-	// Validate 'b'.
-	match := bitArrayJSONRegexp.FindStringSubmatch(b)
-	if match == nil {
-		return fmt.Errorf("BitArray in JSON should be a string of format %q but got %s", bitArrayJSONRegexp.String(), b)
-	}
-	bits := match[1]
-
-	// Construct new BitArray and copy over.
-	numBits := len(bits)
-	bA2 := NewBitArray(numBits)
-	for i := 0; i < numBits; i++ {
-		if bits[i] == 'x' {
-			bA2.SetIndex(i, true)
-		}
-	}
-	*bA = *bA2 //nolint:govet
-	return nil
-}
+//func (bA *BitArray) UnmarshalJSON(bz []byte) error {
+//	b := string(bz)
+//	if b == "null" {
+//		// This is required e.g. for encoding/json when decoding
+//		// into a pointer with pre-allocated BitArray.
+//		bA.Bits = 0
+//		bA.Elems = nil
+//		return nil
+//	}
+//
+//	// Validate 'b'.
+//	match := bitArrayJSONRegexp.FindStringSubmatch(b)
+//	if match == nil {
+//		return fmt.Errorf("BitArray in JSON should be a string of format %q but got %s", bitArrayJSONRegexp.String(), b)
+//	}
+//	bits := match[1]
+//
+//	// Construct new BitArray and copy over.
+//	numBits := len(bits)
+//	bA2 := NewBitArray(numBits)
+//	for i := 0; i < numBits; i++ {
+//		if bits[i] == 'x' {
+//			bA2.SetIndex(i, true)
+//		}
+//	}
+//	*bA = *bA2 //nolint:govet
+//	return nil
+//}

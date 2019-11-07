@@ -6,7 +6,7 @@ import (
 
 var cdc *amino.Codec
 
-func init() {
+func InitCdc() {
 	cdc = amino.NewCodec()
 	cdc.Seal()
 }

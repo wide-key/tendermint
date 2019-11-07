@@ -6,9 +6,10 @@ import (
 	"github.com/tendermint/tendermint/types"
 )
 
-var cdc = amino.NewCodec()
+var cdc *amino.Codec
 
-func init() {
+func InitCdc() {
+	cdc = amino.NewCodec()
 	RegisterEvidenceMessages(cdc)
 	cryptoAmino.RegisterAmino(cdc)
 	types.RegisterEvidences(cdc)

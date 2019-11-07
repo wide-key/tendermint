@@ -16,6 +16,9 @@ import (
 
 type Peer = p2p.Peer
 
+type PexAddrsMessage = pexAddrsMessage
+type PexRequestMessage = pexRequestMessage
+
 const (
 	// PexChannel is a channel for PEX messages
 	PexChannel = byte(0x00)

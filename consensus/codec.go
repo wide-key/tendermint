@@ -5,9 +5,10 @@ import (
 	"github.com/tendermint/tendermint/types"
 )
 
-var cdc = amino.NewCodec()
+var cdc *amino.Codec
 
-func init() {
+func InitCdc() {
+	cdc = amino.NewCodec()
 	RegisterConsensusMessages(cdc)
 	RegisterWALMessages(cdc)
 	types.RegisterBlockAmino(cdc)

@@ -32,6 +32,12 @@ const (
 		bcBlockResponseMessageFieldKeySize
 )
 
+type BcBlockRequestMessage = bcBlockRequestMessage
+type BcNoBlockResponseMessage = bcNoBlockResponseMessage
+type BcBlockResponseMessage = bcBlockResponseMessage
+type BcStatusRequestMessage = bcStatusRequestMessage
+type BcStatusResponseMessage = bcStatusResponseMessage
+
 var (
 	// Maximum number of requests that can be pending per peer, i.e. for which requests have been sent but blocks
 	// have not been received.

@@ -26,9 +26,10 @@ const (
 	SignatureSize = 64
 )
 
-var cdc = amino.NewCodec()
+var cdc *amino.Codec
 
-func init() {
+func InitCdc() {
+	cdc = amino.NewCodec()
 	cdc.RegisterInterface((*crypto.PubKey)(nil), nil)
 	cdc.RegisterConcrete(PubKeyEd25519{},
 		PubKeyAminoName, nil)

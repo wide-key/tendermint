@@ -38,6 +38,12 @@ const (
 		bcBlockResponseMessageFieldKeySize
 )
 
+type BcBlockRequestMessage = bcBlockRequestMessage
+type BcNoBlockResponseMessage = bcNoBlockResponseMessage
+type BcBlockResponseMessage = bcBlockResponseMessage
+type BcStatusRequestMessage = bcStatusRequestMessage
+type BcStatusResponseMessage = bcStatusResponseMessage
+
 type consensusReactor interface {
 	// for when we switch from blockchain reactor and fast sync to
 	// the consensus machine

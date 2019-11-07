@@ -10,7 +10,7 @@ import (
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 )
 
-var cdc = amino.NewCodec()
+var cdc *amino.Codec
 
 // nameTable is used to map public key concrete types back
 // to their registered amino names. This should eventually be handled
@@ -18,7 +18,8 @@ var cdc = amino.NewCodec()
 // nameTable[reflect.TypeOf(ed25519.PubKeyEd25519{})] = ed25519.PubKeyAminoName
 var nameTable = make(map[reflect.Type]string, 3)
 
-func init() {
+func InitCdc() {
+	cdc = amino.NewCodec()
 	// NOTE: It's important that there be no conflicts here,
 	// as that would change the canonical representations,
 	// and therefore change the address.

@@ -27,6 +27,9 @@ const (
 	walDefaultFlushInterval = 2 * time.Second
 )
 
+type MsgInfo = msgInfo
+type TimeoutInfo = timeoutInfo
+
 //--------------------------------------------------------
 // types and functions for savings consensus messages
 
